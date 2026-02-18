@@ -165,6 +165,22 @@ export default function App() {
     return true
   }, [game, rivalThinking, playerColor, analysis])
 
+  // ── Add rival moves to the narrator/feedback feed ────────────
+  useEffect(() => {
+    if (!rivalLastMove) return
+    const rivalColor = playerColor === 'white' ? 'black' : 'white'
+    const sc = analysis.score
+    const evalScore = sc === null || sc === undefined ? null
+      : typeof sc === 'object' ? sc : sc / 100
+    setFeedback(prev => [...prev, {
+      fen:         game.fen(),
+      lastMove:    rivalLastMove.san,
+      eval:        evalScore,
+      bestMove:    null,
+      playerColor: rivalColor,
+    }])
+  }, [rivalLastMove]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // ── Prevent picking up rival pieces ──────────────────────────
   const isDraggablePiece = useCallback(({ piece }) => {
     const pieceColor = piece[0] === 'w' ? 'white' : 'black'
