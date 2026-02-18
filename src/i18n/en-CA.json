@@ -1,0 +1,159 @@
+{
+  "app": {
+    "title": "Bob's Chess Coach",
+    "status": {
+      "checkmate_wins": "Checkmate — {winner} wins",
+      "draw": "Draw",
+      "stockfish_thinking": "Stockfish is thinking…",
+      "in_check": "{color} is in check",
+      "to_move": "{color} to move"
+    },
+    "board": {
+      "depth_chip": "Depth",
+      "score_chip_analysing": "Analysing…",
+      "score_chip_loading": "Engine loading…",
+      "score_chip_mate": "Mate in {n}",
+      "best_chip": "Best",
+      "vs_chip": "vs"
+    },
+    "buttons": {
+      "new_game": "New Game",
+      "settings_soon": "Settings coming soon"
+    }
+  },
+
+  "header": {
+    "brand": "Bob's Chess Coach",
+    "settings_title": "Settings",
+    "log_off": "Log Off",
+    "log_on": "Log On"
+  },
+
+  "color_picker": {
+    "title": "New Game — Choose your side",
+    "white": "White",
+    "black": "Black",
+    "random": "Random",
+    "cancel": "Cancel"
+  },
+
+  "move_history": {
+    "panel_header": "Move History",
+    "empty": "No moves yet"
+  },
+
+  "stockfish_panel": {
+    "panel_header": "Stockfish",
+    "levels": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard",
+      "expert": "Expert"
+    },
+    "change_level_locked": "Start a New Game to change level",
+    "thinking": "Stockfish is thinking…",
+    "waiting_for_move": "Waiting for your move…",
+    "rival_played": "Rival played ({level})",
+    "score_label": "Score",
+    "depth_label": "Depth",
+    "best_response": "{side} best response",
+    "analysing": "Analysing position…",
+    "pick_level": "Pick a level above to play vs Stockfish"
+  },
+
+  "analysis_panel": {
+    "panel_header": "Analysis",
+    "depth_label": "Depth",
+    "score_label": "Score",
+    "best_line_label": "Best line",
+    "depth_quality": {
+      "waiting": "Waiting",
+      "surface": "Surface",
+      "shallow": "Shallow",
+      "standard": "Standard",
+      "deep": "Deep",
+      "very_deep": "Very Deep",
+      "extreme": "Extreme"
+    },
+    "depth_explanation": {
+      "initialising": "Engine is initialising or waiting for a move.",
+      "surface": "At depth {depth} ({fullMoves} full move{s} ahead) the engine catches only the most obvious immediate tactics. Useful for quick blunder checks.",
+      "shallow": "Depth {depth} means Stockfish is looking {halfMoves} half-moves (≈{fullMoves} full moves) ahead. Short tactical combinations — forks, pins, and simple exchanges — are reliably found here.",
+      "standard": "Depth {depth} ({halfMoves} half-moves ahead) is where solid tactical analysis begins. Most one-move threats and two-move combinations are clearly visible to the engine.",
+      "deep": "At depth {depth} Stockfish searches {halfMoves} half-moves ahead. It is now evaluating multi-piece combinations, sacrifices, and medium-horizon strategic plans with high confidence.",
+      "very_deep": "Depth {depth} — {halfMoves} half-moves of full tree search. Analysis at this level uncovers deep combinations that humans rarely see over the board. Evaluations are highly reliable.",
+      "extreme": "Depth {depth} is extreme. Stockfish is exploring {halfMoves} half-moves ahead, far beyond human calculation. At this depth the principal variation reflects near-optimal play for both sides."
+    },
+    "score_explanation": {
+      "equal": "The position is equal — neither side has a meaningful advantage.",
+      "slight_edge": "{side} has a very slight edge (+{abs} pawns). Both sides have good practical chances.",
+      "small_advantage": "{side} holds a small advantage (+{abs} pawns). Precise play is needed to convert.",
+      "clearly_better": "{side} is clearly better (+{abs} pawns). This advantage is equivalent to roughly one minor piece.",
+      "winning": "{side} is winning (+{abs} pawns). A decisive material or positional edge exists.",
+      "dominant": "{side} has a dominant advantage (+{abs} pawns). The game is effectively decided with best play.",
+      "mate_white": "White has a forced checkmate in {n} move{s}.",
+      "mate_black": "Black has a forced checkmate in {n} move{s}."
+    }
+  },
+
+  "why_depth_panel": {
+    "panel_header": "Why Depth Matters",
+    "explanation": "Chess has roughly 35 legal moves per position. Every extra ply (half-move) multiplies the search tree by ~35×. Shallow searches miss deep combinations; deeper searches find lines that no human could calculate at the board. Stockfish uses alpha-beta pruning and NNUE (neural-network) evaluation to cut irrelevant branches and reach high depths efficiently."
+  },
+
+  "narrator_panel": {
+    "panel_header": "Narrator",
+    "empty": "Waiting for moves...",
+    "narrative": {
+      "played": "{side} played {move}.",
+      "eval": "Eval: {eval}.",
+      "best_was": "Best was {move}.",
+      "mate_in": "Mate in {n}"
+    }
+  },
+
+  "feedback_panel": {
+    "panel_header": "Feedback",
+    "empty": "Waiting for moves...",
+    "eval_label": "eval",
+    "best_label": "best"
+  },
+
+  "footer": {
+    "donate_label": "Donate",
+    "title": "Bob's Chess Coach",
+    "copyright": "© {year} - Roberto Vallado",
+    "social": {
+      "instagram_label": "Instagram",
+      "github_label": "GitHub",
+      "linkedin_label": "LinkedIn"
+    }
+  },
+
+  "pieces": {
+    "pawn": "Pawn",
+    "knight": "Knight",
+    "bishop": "Bishop",
+    "rook": "Rook",
+    "queen": "Queen",
+    "king": "King"
+  },
+
+  "colors": {
+    "white": "White",
+    "black": "Black"
+  },
+
+  "move_description": {
+    "castles_kingside": "{color} castles kingside",
+    "castles_queenside": "{color} castles queenside",
+    "pawn_capture_promote": "{color}'s Pawn captures and promotes to {promoted} on {to}",
+    "pawn_advance_promote": "{color}'s Pawn advances to {to} and promotes to {promoted}",
+    "en_passant": "{color}'s Pawn captures en passant on {to}",
+    "capture": "{color}'s {piece} captures the {captured} on {to}",
+    "pawn_double_advance": "{color}'s Pawn advances two squares to {to}",
+    "move": "{color}'s {piece} moves from {from} to {to}",
+    "suffix_checkmate": " — Checkmate!",
+    "suffix_check": " — Check!"
+  }
+}
