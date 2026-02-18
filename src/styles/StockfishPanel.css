@@ -1,0 +1,172 @@
+/* ── Stockfish panel ─────────────────────────────────────── */
+.stockfish-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #080c18;
+  border-bottom: 1px solid #1a2235;
+  overflow: hidden;
+}
+
+/* ── Level selector bar ──────────────────────────────────── */
+.sf-level-bar {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  border-bottom: 1px solid #1a2235;
+  background: #07090f;
+  flex-shrink: 0;
+}
+
+.sf-lvl-btn {
+  flex: 1;
+  padding: 5px 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #0d1018;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+  white-space: nowrap;
+  border: 1px solid;
+}
+
+/* ── Per-colour resting state ────────────────────────────── */
+.sf-lvl-green  { color: #2a6a3a; border-color: #1a3a22; }
+.sf-lvl-blue   { color: #2a4a8a; border-color: #1a2a5a; }
+.sf-lvl-orange { color: #8a4a18; border-color: #5a2e08; }
+.sf-lvl-red    { color: #8a1e1e; border-color: #5a1010; }
+
+/* ── Hover ───────────────────────────────────────────────── */
+.sf-lvl-green:hover:not(:disabled)  { color: #57d97a; border-color: #2a7a3a; background: #0d1e12; }
+.sf-lvl-blue:hover:not(:disabled)   { color: #5a9aff; border-color: #2a5aaa; background: #0d1220; }
+.sf-lvl-orange:hover:not(:disabled) { color: #f0a030; border-color: #9a5a18; background: #1a1008; }
+.sf-lvl-red:hover:not(:disabled)    { color: #e04040; border-color: #9a2020; background: #1a0808; }
+
+/* ── Selected (active) ───────────────────────────────────── */
+.sf-lvl-green.sf-lvl-active  { color: #57d97a; border-color: #3a9a4a; background: #0d2018; }
+.sf-lvl-blue.sf-lvl-active   { color: #7ab4ff; border-color: #3a6acc; background: #0d1828; }
+.sf-lvl-orange.sf-lvl-active { color: #f0a030; border-color: #cc6a18; background: #201408; }
+.sf-lvl-red.sf-lvl-active    { color: #e05050; border-color: #cc2828; background: #200808; }
+
+/* ── Locked (non-selected buttons when a level is chosen) ── */
+.sf-lvl-locked {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+/* ── Rival thinking state ────────────────────────────────── */
+.sf-rival-thinking {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  color: #4e6a8a;
+}
+
+.sf-rival-spinner {
+  font-size: 1.4rem;
+  animation: spin-slow 2s linear infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.sf-content {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 14px;
+  overflow: hidden;
+}
+
+.sf-empty {
+  font-family: 'Courier New', monospace;
+  font-size: 0.72rem;
+  color: #2e3a55;
+  align-self: center;
+  width: 100%;
+  text-align: center;
+}
+
+.sf-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.sf-side-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3a5070;
+}
+
+.sf-piece-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sf-symbol {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.sf-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.sf-piece-name {
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  color: #c8d6e5;
+  font-weight: 700;
+}
+
+.sf-squares {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+}
+
+.sf-sq    { color: #7ecfff; }
+.sf-arrow { color: #2e4a6a; }
+
+.sf-san {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #57d97a;
+  flex-shrink: 0;
+}
+
+.sf-score-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  margin-top: 2px;
+}
+
+.sf-score-key, .sf-depth-key { color: #2e4060; }
+.sf-score-val { color: #7ecfff; margin-right: 8px; }
+.sf-depth-val { color: #4e6a8a; }

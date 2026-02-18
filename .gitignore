@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Editor & OS
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+
+# Vite cache
+.vite/
+.vite-temp/
+
+# Large binary assets (download separately)
+public/stockfish.wasm
+public/stockfish.js
+
+# Claude Code
+.claude/
+CLAUDE.md

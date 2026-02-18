@@ -1,0 +1,142 @@
+/* ── Root layout ─────────────────────────────────────────── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: #0d0f1a;
+  color: #c8d6e5;
+  overflow: hidden;
+}
+
+/* ── Main content (3-panel row) ──────────────────────────── */
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── Board panel ─────────────────────────────────────────── */
+.board-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 14px 16px;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.board-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.board-with-eval {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.board-wrapper {
+  flex-shrink: 0;
+}
+
+/* ── Analysis row below board ────────────────────────────── */
+.analysis-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.analysis-chip {
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 3px;
+  background: #0f1422;
+  border: 1px solid #1e2840;
+  color: #8aa0c0;
+  white-space: nowrap;
+}
+
+.score-chip { color: #7ecfff; border-color: #2e4a6a; }
+.best-chip  { color: #57d97a; border-color: #1e4a2a; }
+.rival-chip { color: #f0a030; border-color: #6a4010; }
+
+.status-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: #7ecfff;
+  letter-spacing: 0.05em;
+}
+
+.status-thinking {
+  color: #f0a030 !important;
+  animation: blink 1s step-start infinite;
+}
+
+.reset-btn {
+  background: #1e2235;
+  color: #7ecfff;
+  border: 1px solid #2e3a55;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.reset-btn:hover {
+  background: #2a3050;
+}
+
+/* ── History column ──────────────────────────────────────── */
+.history-column {
+  display: flex;
+  flex-direction: column;
+  width: 307px;
+  flex-shrink: 0;
+  border-left: 1px solid #1a2235;
+  border-right: 1px solid #1a2235;
+  overflow: hidden;
+}
+
+/* ── Feedback column ─────────────────────────────────────── */
+.feedback-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  border-left: 1px solid #1a2235;
+}
+
+/* ── Shared panel header (used by all panels) ────────────── */
+.panel-header {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #4e6a8a;
+  padding: 10px 14px 6px;
+  border-bottom: 1px solid #1a2235;
+  flex-shrink: 0;
+}
+
+/* ── Thinking dot (shared by StockfishPanel & AnalysisPanel) */
+.thinking-dot {
+  color: #57d97a;
+  font-size: 0.55rem;
+  vertical-align: middle;
+  animation: blink 0.9s step-start infinite;
+}
+
+/* ── Shared animations ───────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

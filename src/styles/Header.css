@@ -1,0 +1,70 @@
+/* ── Header ──────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+  padding: 0 20px;
+  background-color: #0f172a;
+  border-bottom: 1px solid #1e2840;
+  flex-shrink: 0;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-logo {
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.header-title {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-username {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  color: #57d97a;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border: 1px solid #1e4a2a;
+  border-radius: 12px;
+  background: #0a1a10;
+}
+
+.header-btn {
+  background: #1e2235;
+  color: #c8d6e5;
+  border: 1px solid #2e3a55;
+  border-radius: 4px;
+  padding: 5px 12px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1;
+}
+
+.header-btn:hover {
+  background: #2a3050;
+  color: #7ecfff;
+}
+
+.login-btn {
+  color: #7ecfff;
+  border-color: #2e4a6a;
+}
