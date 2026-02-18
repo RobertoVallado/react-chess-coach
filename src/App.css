@@ -733,20 +733,3 @@
   padding-top: 10px;
 }
 
-/* ── Footer ──────────────────────────────────────────────── */
-.app-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 34px;
-  background: #0a0c18;
-  border-top: 1px solid #1e2840;
-  flex-shrink: 0;
-}
-
-.app-footer span {
-  font-family: 'Courier New', monospace;
-  font-size: 0.72rem;
-  color: #2e4a6a;
-  letter-spacing: 0.06em;
-}
