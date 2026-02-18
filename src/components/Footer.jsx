@@ -26,10 +26,8 @@ const Footer = () => {
 
         {/* Center: Title */}
         <div className="footer-center">
-          <div className="footer-title">Bob's Chess Coach</div>
-          <div className="footer-text">
-            © {new Date().getFullYear()} - Roberto Vallado
-          </div>
+          <div className="footer-title">Bob's Chess Coach&#8194;</div>
+          <div className="footer-text">© {new Date().getFullYear()} - Roberto Vallado</div>
         </div>
 
         {/* Right: Social Icons */}

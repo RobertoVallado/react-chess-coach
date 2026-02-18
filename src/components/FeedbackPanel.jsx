@@ -1,28 +1,33 @@
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
+import '../styles/FeedbackPanel.css'
 
-const SPEED_MS = 30 // ms per character
+function evalLabel(e) {
+  if (e === null || e === undefined) return '—'
+  if (typeof e === 'object') return `M${Math.abs(e.mate)}`
+  return e >= 0 ? `+${e.toFixed(2)}` : `${e.toFixed(2)}`
+}
 
-function TypingText({ text }) {
-  const [count, setCount] = useState(0)
-  const done = count >= text.length
-
-  // Reset whenever a new line is passed in
-  useEffect(() => {
-    setCount(0)
-  }, [text])
-
-  // Advance one character at a time
-  useEffect(() => {
-    if (done) return
-    const timer = setTimeout(() => setCount(c => c + 1), SPEED_MS)
-    return () => clearTimeout(timer)
-  }, [count, done])
-
+function EntryCard({ entry }) {
   return (
-    <>
-      {text.slice(0, count)}
-      {!done && <span className="feedback-cursor">▋</span>}
-    </>
+    <div className="feedback-line">
+      <span className="feedback-prompt">&gt;</span>
+      <div className="fb-card">
+        <div className="fb-move-row">
+          <span className="fb-move">{entry.lastMove}</span>
+          <span className="fb-color">[{entry.playerColor}]</span>
+        </div>
+        <div className="fb-detail-row">
+          <span className="fb-key">eval</span>
+          <span className="fb-eval">{evalLabel(entry.eval)}</span>
+          {entry.bestMove && (
+            <>
+              <span className="fb-key">best</span>
+              <span className="fb-best">{entry.bestMove}</span>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
@@ -40,14 +45,8 @@ export default function FeedbackPanel({ entries }) {
         {entries.length === 0 && (
           <span className="feedback-empty">Waiting for moves...</span>
         )}
-        {entries.map((text, i) => (
-          <div key={i} className="feedback-line">
-            <span className="feedback-prompt">&gt;</span>
-            {i === entries.length - 1
-              ? <TypingText text={text} />
-              : <span>{text}</span>
-            }
-          </div>
+        {entries.map((entry, i) => (
+          <EntryCard key={i} entry={entry} />
         ))}
         <div ref={bottomRef} />
       </div>

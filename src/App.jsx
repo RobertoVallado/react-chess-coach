@@ -6,7 +6,9 @@ import FeedbackPanel from './components/FeedbackPanel'
 import StockfishPanel, { LEVELS } from './components/StockfishPanel'
 import EvalBar from './components/EvalBar'
 import AnalysisPanel from './components/AnalysisPanel'
+import WhyDepthMattersPanel from './components/WhyDepthMattersPanel'
 import ColorPickerModal from './components/ColorPickerModal'
+import NarratorPanel from './components/NarratorPanel'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useStockfish } from './hooks/useStockfish'
@@ -90,7 +92,6 @@ export default function App() {
     setRivalAnimating(true)
     setGame(g)
     setMoves(prev => [...prev, { san: move.san, fen: g.fen() }])
-    setFeedback(prev => [...prev, describeMove(move, g.isCheck(), g.isCheckmate())])
     setRivalLastMove({ san: move.san, from: move.from, to: move.to, piece: move.piece, color: move.color })
     setRivalThinking(false)
     rivalTriggerRef.current = false
@@ -139,10 +140,30 @@ export default function App() {
 
     setGame(gameCopy)
     setMoves(prev => [...prev, { san: move.san, fen: gameCopy.fen() }])
-    setFeedback(prev => [...prev, describeMove(move, gameCopy.isCheck(), gameCopy.isCheckmate())])
+
+    const evalScore = analysis.score === null || analysis.score === undefined
+      ? null
+      : typeof analysis.score === 'object'
+        ? analysis.score
+        : analysis.score / 100
+
+    const movePayload = {
+      fen:         gameCopy.fen(),
+      lastMove:    move.san,
+      eval:        evalScore,
+      bestMove:    uciToSan(game.fen(), analysis.bestMove),
+      playerColor,
+    }
+
+    // TODO: replace with real API call
+    // fetch('/analyze-api', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(movePayload) })
+    console.log('[analyze-api] payload:', movePayload)
+
+    setFeedback(prev => [...prev, movePayload])
+
     setRivalLastMove(null) // clear rival's last shown move on player's turn
     return true
-  }, [game, rivalThinking, playerColor])
+  }, [game, rivalThinking, playerColor, analysis])
 
   // ── Prevent picking up rival pieces ──────────────────────────
   const isDraggablePiece = useCallback(({ piece }) => {
@@ -269,6 +290,7 @@ export default function App() {
         <div className="history-column">
           <MoveHistory moves={moves} />
           <AnalysisPanel analysis={analysis} fen={game.fen()} />
+          <WhyDepthMattersPanel />
         </div>
 
         <div className="feedback-column">
@@ -280,6 +302,7 @@ export default function App() {
             rivalThinking={rivalThinking}
             rivalLastMove={rivalLastMove}
           />
+          <NarratorPanel entries={feedback} />
           <FeedbackPanel entries={feedback} />
         </div>
       </div>

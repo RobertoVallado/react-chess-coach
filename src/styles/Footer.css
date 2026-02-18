@@ -32,9 +32,11 @@
 }
 
 .footer-center {
-  justify-content: center;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* optional, for centering */
 }
+
 
 .footer-right {
   justify-content: flex-end;

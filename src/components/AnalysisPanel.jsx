@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Chess } from 'chess.js'
+import '../styles/AnalysisPanel.css'
 
 // Convert an array of UCI moves (from the current FEN) into SAN notation
 function pvToSan(fen, uciMoves) {
@@ -133,17 +134,6 @@ export default function AnalysisPanel({ analysis, fen }) {
           </div>
         )}
 
-        {/* Static primer on why depth matters */}
-        <div className="as-block as-primer">
-          <div className="as-label" style={{ marginBottom: 4 }}>Why depth matters</div>
-          <p className="as-explain">
-            Chess has roughly 35 legal moves per position. Every extra ply (half-move)
-            multiplies the search tree by ~35×. Shallow searches miss deep combinations;
-            deeper searches find lines that no human could calculate at the board.
-            Stockfish uses alpha-beta pruning and NNUE (neural-network) evaluation to
-            cut irrelevant branches and reach high depths efficiently.
-          </p>
-        </div>
       </div>
     </div>
   )

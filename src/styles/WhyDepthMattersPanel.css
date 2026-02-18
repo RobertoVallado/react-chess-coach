@@ -1,0 +1,9 @@
+/* ── Why Depth Matters panel ─────────────────────────────── */
+.why-depth-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #08101a;
+  border-top: 1px solid #1a2235;
+  overflow: hidden;
+}

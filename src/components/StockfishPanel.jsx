@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Chess } from 'chess.js'
+import '../styles/StockfishPanel.css'
 
 const PIECE_NAMES = {
   p: 'Pawn', n: 'Knight', b: 'Bishop', r: 'Rook', q: 'Queen', k: 'King',

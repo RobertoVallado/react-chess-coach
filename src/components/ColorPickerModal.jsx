@@ -1,3 +1,5 @@
+import '../styles/ColorPickerModal.css'
+
 export default function ColorPickerModal({ onSelect, onCancel }) {
   const pick = (color) => {
     if (color === 'random') {

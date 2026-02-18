@@ -1,0 +1,111 @@
+/* ── Analysis side panel ─────────────────────────────────── */
+.analysis-side-panel {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  background: #090b16;
+  overflow: hidden;
+}
+
+.analysis-side-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scrollbar-width: thin;
+  scrollbar-color: #1e2840 transparent;
+}
+
+.analysis-side-content::-webkit-scrollbar { width: 3px; }
+.analysis-side-content::-webkit-scrollbar-thumb {
+  background: #1e2840;
+  border-radius: 2px;
+}
+
+/* ── Individual block ────────────────────────────────────── */
+.as-block {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.as-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.as-label {
+  font-family: 'Courier New', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3a5070;
+}
+
+.as-value {
+  font-family: 'Courier New', monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c8d6e5;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.score-value { color: #7ecfff; }
+
+.as-tag {
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid;
+  border-radius: 2px;
+  padding: 1px 5px;
+}
+
+.as-progress-track {
+  height: 3px;
+  background: #1a2235;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.as-progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.5s ease, background 0.5s ease;
+}
+
+.as-explain {
+  font-family: 'Courier New', monospace;
+  font-size: 0.68rem;
+  line-height: 1.55;
+  color: #4a6080;
+}
+
+/* ── Principal variation line ────────────────────────────── */
+.as-pv {
+  font-family: 'Courier New', monospace;
+  font-size: 0.76rem;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.pv-num {
+  color: #2e4a6a;
+  margin-right: 2px;
+}
+
+.pv-white { color: #c8d6e5; }
+.pv-black { color: #7a90a8; }
+
+/* static primer block has a subtle top border */
+.as-primer {
+  border-top: 1px solid #0f1a28;
+  padding-top: 10px;
+}

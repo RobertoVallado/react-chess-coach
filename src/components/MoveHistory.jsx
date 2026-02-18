@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import '../styles/MoveHistory.css'
 
 export default function MoveHistory({ moves }) {
   const bottomRef = useRef(null)

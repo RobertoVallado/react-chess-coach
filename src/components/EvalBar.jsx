@@ -1,3 +1,5 @@
+import '../styles/EvalBar.css'
+
 // Vertical evaluation bar — white fills from the bottom, black from top.
 // score: centipawns (number, white-positive) | { mate: N } | null
 export default function EvalBar({ score, height }) {
