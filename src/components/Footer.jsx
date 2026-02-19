@@ -18,7 +18,7 @@ const Footer = () => {
             <KoFiButton
               color="#f06f52"
               id="H2H2OBC05"
-              label="Faire un don"
+              label="Donate"
               radius="12px"
             />
           </div>

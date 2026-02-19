@@ -28,7 +28,7 @@ export function useStockfish() {
   useEffect(() => {
     let worker
     try {
-      worker = new Worker('/stockfish.js')
+      worker = new Worker(`${import.meta.env.BASE_URL}stockfish.js`)
     } catch (err) {
       console.error('[Stockfish] Failed to create worker:', err)
       return

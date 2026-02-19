@@ -1,4 +1,3 @@
-/* ── Evaluation bar ──────────────────────────────────────── */
 .eval-bar-container {
   display: flex;
   flex-direction: column;
@@ -31,7 +30,7 @@
 }
 
 .eval-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.6rem;
   color: #7ecfff;
   letter-spacing: 0.03em;

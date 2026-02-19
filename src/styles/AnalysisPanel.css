@@ -1,4 +1,3 @@
-/* ── Analysis side panel ─────────────────────────────────── */
 .analysis-side-panel {
   display: flex;
   flex-direction: column;
@@ -24,7 +23,6 @@
   border-radius: 2px;
 }
 
-/* ── Individual block ────────────────────────────────────── */
 .as-block {
   display: flex;
   flex-direction: column;
@@ -39,15 +37,15 @@
 }
 
 .as-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #3a5070;
+  color: #c8d6e5;
 }
 
 .as-value {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.82rem;
   font-weight: 700;
   color: #c8d6e5;
@@ -82,15 +80,14 @@
 }
 
 .as-explain {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.68rem;
   line-height: 1.55;
-  color: #4a6080;
+  color: #798595;
 }
 
-/* ── Principal variation line ────────────────────────────── */
 .as-pv {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.76rem;
   line-height: 1.6;
   word-break: break-word;
@@ -104,7 +101,6 @@
 .pv-white { color: #c8d6e5; }
 .pv-black { color: #7a90a8; }
 
-/* static primer block has a subtle top border */
 .as-primer {
   border-top: 1px solid #0f1a28;
   padding-top: 10px;

@@ -50,6 +50,13 @@ export default function FeedbackPanel({ entries }) {
         ))}
         <div ref={bottomRef} />
       </div>
+        {/* Maintenance Block */}
+        <section className="maintenance-section">
+          <div className="maintenance-card">
+            <h2>Under maintenance 🚧</h2>
+            <p>Waiting for OLLAMA Feedback implementation</p>
+          </div>
+        </section>
     </div>
   )
 }
