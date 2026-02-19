@@ -12,10 +12,7 @@ function stockfishPlugin() {
 
       // Prefer full single-thread WASM, fall back to lite, then asm.js
       const candidates = [
-        ['stockfish-18-single.js',      'stockfish-18-single.wasm'],
-        ['stockfish-18-lite-single.js', 'stockfish-18-lite-single.wasm'],
-        ['stockfish-18-asm.js',          null],
-        ['stockfish.js',                 'stockfish.wasm'],
+        ['stockfish-18-lite-single.js', 'stockfish-18-lite-single.wasm']
       ]
 
       for (const [jsFile, wasmFile] of candidates) {
