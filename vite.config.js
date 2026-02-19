@@ -36,6 +36,6 @@ function stockfishPlugin() {
 }
 
 export default defineConfig({
-  base: '/react-chess-coach/',
+  base: "/"
   plugins: [react(), stockfishPlugin()],
 })
