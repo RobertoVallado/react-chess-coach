@@ -23,7 +23,7 @@
 }
 
 .modal-title {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.82rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -67,7 +67,7 @@
 .random-btn .color-piece { color: #7ecfff; }
 
 .color-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: #6a80a0;
@@ -76,7 +76,7 @@
 .modal-cancel {
   background: transparent;
   border: none;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.72rem;
   color: #2e3a55;
   cursor: pointer;

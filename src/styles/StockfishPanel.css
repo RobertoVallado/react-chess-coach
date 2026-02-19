@@ -19,7 +19,7 @@
 .sf-lvl-btn {
   flex: 1;
   padding: 5px 4px;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.62rem;
   letter-spacing: 0.05em;
   font-weight: 700;
@@ -59,7 +59,7 @@
   justify-content: center;
   gap: 8px;
   width: 100%;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.75rem;
   color: #4e6a8a;
 }
@@ -83,7 +83,7 @@
 }
 
 .sf-empty {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.72rem;
   color: #2e3a55;
   align-self: center;
@@ -99,7 +99,7 @@
 }
 
 .sf-side-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.65rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -126,7 +126,7 @@
 }
 
 .sf-piece-name {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.8rem;
   color: #c8d6e5;
   font-weight: 700;
@@ -136,7 +136,7 @@
   display: flex;
   align-items: center;
   gap: 4px;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.75rem;
 }
 
@@ -144,7 +144,7 @@
 .sf-arrow { color: #2e4a6a; }
 
 .sf-san {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 1.1rem;
   font-weight: 700;
   color: #57d97a;
@@ -155,7 +155,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.68rem;
   margin-top: 2px;
 }

@@ -51,7 +51,7 @@
 }
 
 .analysis-chip {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", sans-serif;
   font-size: 0.75rem;
   padding: 3px 10px;
   border-radius: 3px;
@@ -66,7 +66,7 @@
 .rival-chip { color: #f0a030; border-color: #6a4010; }
 
 .status-text {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", sans-serif;
   font-size: 0.85rem;
   color: #7ecfff;
   letter-spacing: 0.05em;
@@ -83,7 +83,7 @@
   border: 1px solid #2e3a55;
   border-radius: 4px;
   padding: 4px 12px;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.8rem;
   cursor: pointer;
   transition: background 0.15s;
@@ -115,11 +115,11 @@
 
 /* Shared panel header  */
 .panel-header {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.68rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #4e6a8a;
+  color: #94a1af;
   padding: 10px 14px 6px;
   border-bottom: 1px solid #1a2235;
   flex-shrink: 0;
@@ -137,3 +137,30 @@
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }
+
+/* //MAINTENANCE TEMPROARY SECTION */
+.maintenance-section {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+}
+
+.maintenance-card {
+  background: linear-gradient(135deg, #f06f52, #f79c6b);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* .maintenance-card h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.maintenance-card p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+} */

@@ -21,7 +21,7 @@
 }
 
 .header-title {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -35,7 +35,7 @@
 }
 
 .header-username {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.82rem;
   color: #57d97a;
   letter-spacing: 0.06em;
@@ -51,7 +51,7 @@
   border: 1px solid #2e3a55;
   border-radius: 4px;
   padding: 5px 12px;
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.82rem;
   cursor: pointer;
   transition: background 0.15s, color 0.15s;

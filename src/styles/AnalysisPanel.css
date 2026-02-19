@@ -37,15 +37,15 @@
 }
 
 .as-label {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #3a5070;
+  color: #c8d6e5;
 }
 
 .as-value {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.82rem;
   font-weight: 700;
   color: #c8d6e5;
@@ -80,14 +80,14 @@
 }
 
 .as-explain {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.68rem;
   line-height: 1.55;
-  color: #4a6080;
+  color: #798595;
 }
 
 .as-pv {
-  font-family: 'Courier New', monospace;
+  font-family: "Lato", monospace;
   font-size: 0.76rem;
   line-height: 1.6;
   word-break: break-word;
