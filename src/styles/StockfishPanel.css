@@ -1,4 +1,3 @@
-/* ── Stockfish panel ─────────────────────────────────────── */
 .stockfish-panel {
   display: flex;
   flex-direction: column;
@@ -8,7 +7,6 @@
   overflow: hidden;
 }
 
-/* ── Level selector bar ──────────────────────────────────── */
 .sf-level-bar {
   display: flex;
   gap: 4px;
@@ -34,31 +32,26 @@
   border: 1px solid;
 }
 
-/* ── Per-colour resting state ────────────────────────────── */
 .sf-lvl-green  { color: #2a6a3a; border-color: #1a3a22; }
 .sf-lvl-blue   { color: #2a4a8a; border-color: #1a2a5a; }
 .sf-lvl-orange { color: #8a4a18; border-color: #5a2e08; }
 .sf-lvl-red    { color: #8a1e1e; border-color: #5a1010; }
 
-/* ── Hover ───────────────────────────────────────────────── */
 .sf-lvl-green:hover:not(:disabled)  { color: #57d97a; border-color: #2a7a3a; background: #0d1e12; }
 .sf-lvl-blue:hover:not(:disabled)   { color: #5a9aff; border-color: #2a5aaa; background: #0d1220; }
 .sf-lvl-orange:hover:not(:disabled) { color: #f0a030; border-color: #9a5a18; background: #1a1008; }
 .sf-lvl-red:hover:not(:disabled)    { color: #e04040; border-color: #9a2020; background: #1a0808; }
 
-/* ── Selected (active) ───────────────────────────────────── */
 .sf-lvl-green.sf-lvl-active  { color: #57d97a; border-color: #3a9a4a; background: #0d2018; }
 .sf-lvl-blue.sf-lvl-active   { color: #7ab4ff; border-color: #3a6acc; background: #0d1828; }
 .sf-lvl-orange.sf-lvl-active { color: #f0a030; border-color: #cc6a18; background: #201408; }
 .sf-lvl-red.sf-lvl-active    { color: #e05050; border-color: #cc2828; background: #200808; }
 
-/* ── Locked (non-selected buttons when a level is chosen) ── */
 .sf-lvl-locked {
   opacity: 0.25;
   cursor: not-allowed;
 }
 
-/* ── Rival thinking state ────────────────────────────────── */
 .sf-rival-thinking {
   display: flex;
   flex-direction: column;
