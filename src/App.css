@@ -164,3 +164,80 @@
   font-size: 1.1rem;
   line-height: 1.5;
 } */
+
+.mobile-tabs {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .app {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    flex-direction: column;
+    overflow: visible;
+    height: auto;
+  }
+
+  .board-panel {
+    align-items: center;
+    padding: 10px 12px;
+    flex-shrink: 0;
+  }
+
+  .board-with-eval {
+    justify-content: center;
+  }
+
+  .history-column {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid #1a2235;
+    flex-shrink: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .feedback-column {
+    border-left: none;
+    border-top: 1px solid #1a2235;
+    flex-shrink: 0;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-tabs {
+    display: flex;
+    background: #07090f;
+    border-top: 1px solid #1a2235;
+    border-bottom: 1px solid #1a2235;
+    flex-shrink: 0;
+  }
+
+  .mobile-tab {
+    flex: 1;
+    padding: 11px 0;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #4e6a8a;
+    font-family: "Lato", monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .mobile-tab-active {
+    color: #7ecfff;
+    border-bottom: 2px solid #7ecfff;
+  }
+}

@@ -14,7 +14,26 @@ import Footer from './components/Footer'
 import { useStockfish } from './hooks/useStockfish'
 import './App.css'
 
-const BOARD_SIZE = Math.min(720, window.innerHeight - 210)
+function useBoardSize() {
+  const [size, setSize] = useState(() => {
+    const isMobile = window.innerWidth < 768
+    return isMobile
+      ? Math.min(window.innerWidth - 24, Math.floor(window.innerHeight * 0.55))
+      : Math.min(720, window.innerHeight - 210)
+  })
+  useEffect(() => {
+    function update() {
+      const isMobile = window.innerWidth < 768
+      setSize(isMobile
+        ? Math.min(window.innerWidth - 24, Math.floor(window.innerHeight * 0.55))
+        : Math.min(720, window.innerHeight - 210)
+      )
+    }
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [])
+  return size
+}
 
 const PIECE_NAMES = {
   p: 'Pawn', n: 'Knight', b: 'Bishop', r: 'Rook', q: 'Queen', k: 'King',
@@ -60,12 +79,14 @@ function uciToSan(fen, uci) {
 }
 
 export default function App() {
+  const BOARD_SIZE = useBoardSize()
   const [game, setGame]               = useState(new Chess())
   const [moves, setMoves]             = useState([])
   const [feedback, setFeedback]       = useState([])
   const [isLoggedIn, setIsLoggedIn]   = useState(false)
   const [playerColor, setPlayerColor] = useState('white')
   const [showColorPicker, setShowColorPicker] = useState(false)
+  const [activeTab, setActiveTab]     = useState('history')
 
   // Rival (vs Stockfish) state
   const [rivalLevel, setRivalLevel]       = useState(LEVELS[0]) // default Easy
@@ -305,13 +326,24 @@ export default function App() {
           </div>
         </div>
 
-        <div className="history-column">
+        <div className="mobile-tabs">
+          <button
+            className={`mobile-tab ${activeTab === 'history' ? 'mobile-tab-active' : ''}`}
+            onClick={() => setActiveTab('history')}
+          >History</button>
+          <button
+            className={`mobile-tab ${activeTab === 'analysis' ? 'mobile-tab-active' : ''}`}
+            onClick={() => setActiveTab('analysis')}
+          >Analysis</button>
+        </div>
+
+        <div className={`history-column${activeTab !== 'history' ? ' mobile-hidden' : ''}`}>
           <MoveHistory moves={moves} />
           <AnalysisPanel analysis={analysis} fen={game.fen()} />
           <WhyDepthMattersPanel />
         </div>
 
-        <div className="feedback-column">
+        <div className={`feedback-column${activeTab !== 'analysis' ? ' mobile-hidden' : ''}`}>
           <StockfishPanel
             analysis={analysis}
             fen={game.fen()}

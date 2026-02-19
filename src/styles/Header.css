@@ -67,3 +67,28 @@
   color: #7ecfff;
   border-color: #2e4a6a;
 }
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0 12px;
+    height: 46px;
+  }
+
+  .header-title {
+    font-size: 0.82rem;
+  }
+
+  .header-logo {
+    font-size: 1.15rem;
+  }
+
+  .header-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+  }
+
+  .header-username {
+    font-size: 0.72rem;
+    padding: 2px 7px;
+  }
+}
