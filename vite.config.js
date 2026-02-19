@@ -36,6 +36,6 @@ function stockfishPlugin() {
 }
 
 export default defineConfig({
-  base: "/"
+  base: "/",
   plugins: [react(), stockfishPlugin()],
 })
