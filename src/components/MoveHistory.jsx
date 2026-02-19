@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import '../styles/MoveHistory.css'
 
 export default function MoveHistory({ moves }) {
   const bottomRef = useRef(null)
@@ -15,17 +14,22 @@ export default function MoveHistory({ moves }) {
   }
 
   return (
-    <div className="history-panel">
+    <div className="flex flex-col flex-1 bg-panel-1 border-b border-border-dim overflow-hidden">
       <div className="panel-header">Move History</div>
-      <div className="history-list">
+      <div className="flex-1 overflow-y-auto py-2 scrollbar-chess">
         {pairs.length === 0 && (
-          <span className="history-empty">No moves yet</span>
+          <span className="block text-center text-txt-faint font-lato text-[0.78rem] mt-6">
+            No moves yet
+          </span>
         )}
         {pairs.map(([white, black], idx) => (
-          <div key={idx} className="move-row">
-            <span className="move-num">{idx + 1}.</span>
-            <span className="move-san white-move">{white?.san ?? ''}</span>
-            <span className="move-san black-move">{black?.san ?? ''}</span>
+          <div
+            key={idx}
+            className={`grid grid-cols-[28px_1fr_1fr] px-[10px] py-[3px] font-lato text-[0.82rem] leading-[1.65] ${idx % 2 === 1 ? 'bg-[#111425]' : ''}`}
+          >
+            <span className="text-txt-secondary select-none">{idx + 1}.</span>
+            <span className="text-[#e8e8e8]">{white?.san ?? ''}</span>
+            <span className="text-[#a0b0c8]">{black?.san ?? ''}</span>
           </div>
         ))}
         <div ref={bottomRef} />

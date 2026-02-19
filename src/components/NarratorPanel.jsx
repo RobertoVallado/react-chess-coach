@@ -1,6 +1,4 @@
 import { useState, useEffect, useRef } from 'react'
-import '../styles/FeedbackPanel.css'
-import '../styles/NarratorPanel.css'
 
 const SPEED_MS = 30
 
@@ -34,7 +32,7 @@ function TypingText({ text }) {
   return (
     <>
       {text.slice(0, count)}
-      {!done && <span className="feedback-cursor">▋</span>}
+      {!done && <span className="inline-block text-green animate-blink-fast ml-[1px]">▋</span>}
     </>
   )
 }
@@ -47,17 +45,19 @@ export default function NarratorPanel({ entries }) {
   }, [entries])
 
   return (
-    <div className="narrator-panel">
+    <div className="flex flex-col flex-1 bg-panel-4 border-b border-border-dim overflow-hidden">
       <div className="panel-header">Narrator</div>
-      <div className="feedback-content">
+      <div className="flex-1 overflow-y-auto p-[12px_4px_12px_12px] scrollbar-green">
         {entries.length === 0 && (
-          <span className="feedback-empty">Waiting for moves...</span>
+          <span className="block font-courier text-[0.78rem] text-[#1e3a22] p-[12px_4px]">
+            Waiting for moves...
+          </span>
         )}
         {entries.map((entry, i) => {
           const text = toNarrative(entry)
           return (
-            <div key={i} className="feedback-line">
-              <span className="feedback-prompt">&gt;</span>
+            <div key={i} className="flex gap-2 font-courier text-[0.84rem] leading-[1.7] text-green py-[1px]">
+              <span className="text-[#2a5a34] shrink-0 select-none">&gt;</span>
               {i === entries.length - 1
                 ? <TypingText text={text} />
                 : <span>{text}</span>

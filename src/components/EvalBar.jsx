@@ -1,5 +1,3 @@
-import '../styles/EvalBar.css'
-
 // Vertical evaluation bar — white fills from the bottom, black from top.
 // score: centipawns (number, white-positive) | { mate: N } | null
 export default function EvalBar({ score, height }) {
@@ -19,14 +17,16 @@ export default function EvalBar({ score, height }) {
   }
 
   return (
-    <div className="eval-bar-container" style={{ height }}>
-      <div className="eval-bar">
+    <div className="hidden md:flex flex-col items-center gap-1 w-[18px] shrink-0" style={{ height }}>
+      <div className="flex-1 w-full rounded-[3px] overflow-hidden flex flex-col border border-border-dim">
         {/* Black section (top) shrinks as white gains */}
-        <div className="eval-black" style={{ height: `${100 - whitePct}%` }} />
+        <div className="bg-[#1a1a1a] shrink-0 transition-[height] duration-[600ms]"
+             style={{ height: `${100 - whitePct}%` }} />
         {/* White section (bottom) grows as white gains */}
-        <div className="eval-white" style={{ height: `${whitePct}%` }} />
+        <div className="bg-[#e8e0d0] flex-1 transition-[height] duration-[600ms]"
+             style={{ height: `${whitePct}%` }} />
       </div>
-      <div className="eval-label">{label}</div>
+      <div className="font-lato text-[0.6rem] text-blue whitespace-nowrap">{label}</div>
     </div>
   )
 }

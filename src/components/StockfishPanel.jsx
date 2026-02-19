@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Chess } from 'chess.js'
-import '../styles/StockfishPanel.css'
 
 const PIECE_NAMES = {
   p: 'Pawn', n: 'Knight', b: 'Bishop', r: 'Rook', q: 'Queen', k: 'King',
@@ -17,6 +16,30 @@ export const LEVELS = [
   { label: 'Expert', skill: 20, color: 'red'    },
 ]
 
+// Per-level Tailwind classes (base, hover, active)
+const LEVEL_CLASSES = {
+  green: {
+    base:   'text-sf-green border-sf-green-border',
+    hover:  'hover:text-sf-green-hover hover:border-[#2a7a3a] hover:bg-[#0d1e12]',
+    active: 'text-sf-green-hover border-sf-green-active bg-[#0d2018]',
+  },
+  blue: {
+    base:   'text-sf-blue border-sf-blue-border',
+    hover:  'hover:text-[#5a9aff] hover:border-[#2a5aaa] hover:bg-[#0d1220]',
+    active: 'text-[#7ab4ff] border-[#3a6acc] bg-[#0d1828]',
+  },
+  orange: {
+    base:   'text-sf-orange border-sf-orange-border',
+    hover:  'hover:text-orange hover:border-[#9a5a18] hover:bg-[#1a1008]',
+    active: 'text-orange border-[#cc6a18] bg-[#201408]',
+  },
+  red: {
+    base:   'text-sf-red border-sf-red-border',
+    hover:  'hover:text-red-acc hover:border-[#9a2020] hover:bg-[#1a0808]',
+    active: 'text-[#e05050] border-[#cc2828] bg-[#200808]',
+  },
+}
+
 export default function StockfishPanel({
   analysis, fen,
   rivalLevel, onLevelChange,
@@ -31,7 +54,7 @@ export default function StockfishPanel({
 
   // Decode bestMove UCI → display info (analysis mode)
   const bestMoveInfo = useMemo(() => {
-    if (rivalLevel !== null) return null          // hide in rival mode
+    if (rivalLevel !== null) return null
     if (!bestMove || bestMove === '(none)' || !fen) return null
     try {
       const g    = new Chess(fen)
@@ -59,25 +82,28 @@ export default function StockfishPanel({
   })()
 
   return (
-    <div className="stockfish-panel">
+    <div className="flex flex-col flex-1 bg-panel-2 border-b border-border-dim overflow-hidden">
       <div className="panel-header">
         Stockfish
         {(thinking || rivalThinking) && <span className="thinking-dot">●</span>}
       </div>
 
-      {/* ── Level selector ───────────────────────────────── */}
-      <div className="sf-level-bar">
+      {/* Level selector */}
+      <div className="flex gap-1 px-[10px] py-[6px] border-b border-border-dim bg-panel-7 shrink-0">
         {LEVELS.map(lvl => {
           const isSelected = rivalLevel?.skill === lvl.skill
           const isLocked   = rivalLevel !== null
+          const lc = LEVEL_CLASSES[lvl.color]
           return (
             <button
               key={lvl.skill}
               className={[
-                'sf-lvl-btn',
-                `sf-lvl-${lvl.color}`,
-                isSelected ? 'sf-lvl-active' : '',
-                isLocked && !isSelected ? 'sf-lvl-locked' : '',
+                'flex-1 py-[5px] font-lato text-[0.62rem] tracking-[0.05em] font-bold uppercase',
+                'bg-[#0d1018] rounded-[3px] cursor-pointer transition-all whitespace-nowrap border',
+                lc.base,
+                !isLocked ? lc.hover : '',
+                isSelected ? lc.active : '',
+                isLocked && !isSelected ? 'opacity-25 cursor-not-allowed' : '',
               ].join(' ')}
               onClick={() => !isLocked && onLevelChange(lvl)}
               disabled={isLocked}
@@ -89,84 +115,92 @@ export default function StockfishPanel({
         })}
       </div>
 
-      {/* ── Content area ─────────────────────────────────── */}
-      <div className="sf-content">
+      {/* Content area */}
+      <div className="flex-1 flex items-start p-[10px_14px] overflow-hidden">
 
         {/* RIVAL MODE */}
         {rivalLevel !== null && (
           rivalThinking ? (
-            <div className="sf-rival-thinking">
-              <span className="sf-rival-spinner">⏳</span>
+            <div className="flex flex-col items-center justify-center gap-2 w-full font-lato text-[0.75rem] text-txt-secondary">
+              <span className="text-[1.4rem] animate-spin-slow">⏳</span>
               <span>Stockfish is thinking…</span>
             </div>
           ) : rivalLastMove ? (
-            <div className="sf-card">
-              <div className="sf-side-label">
+            <div className="flex flex-col gap-2 w-full">
+              <div className="font-lato text-[0.65rem] tracking-[0.1em] uppercase text-[#3a5070]">
                 Rival played ({rivalLevel.label})
               </div>
-              <div className="sf-piece-row">
-                <span
-                  className="sf-symbol"
-                  style={{ color: rivalLastMove.color === 'w' ? '#f0d9b5' : '#b0b8c8' }}
-                >
+              <div className="flex items-center gap-[10px]">
+                <span className="text-[2rem] leading-none shrink-0"
+                      style={{ color: rivalLastMove.color === 'w' ? '#f0d9b5' : '#b0b8c8' }}>
                   {PIECE_SYMBOL[rivalLastMove.color][rivalLastMove.piece]}
                 </span>
-                <div className="sf-details">
-                  <span className="sf-piece-name">{PIECE_NAMES[rivalLastMove.piece]}</span>
-                  <span className="sf-squares">
-                    <span className="sf-sq">{rivalLastMove.from}</span>
-                    <span className="sf-arrow">→</span>
-                    <span className="sf-sq">{rivalLastMove.to}</span>
+                <div className="flex flex-col gap-[2px] flex-1">
+                  <span className="font-lato text-[0.8rem] text-txt-primary font-bold">
+                    {PIECE_NAMES[rivalLastMove.piece]}
+                  </span>
+                  <span className="flex items-center gap-1 font-lato text-[0.75rem]">
+                    <span className="text-blue">{rivalLastMove.from}</span>
+                    <span className="text-blue-dim">→</span>
+                    <span className="text-blue">{rivalLastMove.to}</span>
                   </span>
                 </div>
-                <span className="sf-san">{rivalLastMove.san}</span>
+                <span className="font-lato text-[1.1rem] font-bold text-green shrink-0">
+                  {rivalLastMove.san}
+                </span>
               </div>
               {scoreLabel && (
-                <div className="sf-score-row">
-                  <span className="sf-score-key">Score</span>
-                  <span className="sf-score-val">{scoreLabel}</span>
-                  <span className="sf-depth-key">Depth</span>
-                  <span className="sf-depth-val">{depth}</span>
+                <div className="flex items-center gap-[6px] font-lato text-[0.68rem] mt-[2px]">
+                  <span className="text-[#2e4060]">Score</span>
+                  <span className="text-blue mr-2">{scoreLabel}</span>
+                  <span className="text-[#2e4060]">Depth</span>
+                  <span className="text-txt-secondary">{depth}</span>
                 </div>
               )}
             </div>
           ) : (
-            <span className="sf-empty">Waiting for your move…</span>
+            <span className="font-lato text-[0.72rem] text-txt-faint text-center w-full self-center">
+              Waiting for your move…
+            </span>
           )
         )}
 
         {/* ANALYSIS MODE */}
         {rivalLevel === null && (
           !bestMoveInfo ? (
-            <span className="sf-empty">
+            <span className="font-lato text-[0.72rem] text-txt-faint text-center w-full self-center">
               {thinking ? 'Analysing position…' : 'Pick a level above to play vs Stockfish'}
             </span>
           ) : (
-            <div className="sf-card">
-              <div className="sf-side-label">{sideLabel} best response</div>
-              <div className="sf-piece-row">
-                <span
-                  className="sf-symbol"
-                  style={{ color: bestMoveInfo.color === 'w' ? '#f0d9b5' : '#b0b8c8' }}
-                >
+            <div className="flex flex-col gap-2 w-full">
+              <div className="font-lato text-[0.65rem] tracking-[0.1em] uppercase text-[#3a5070]">
+                {sideLabel} best response
+              </div>
+              <div className="flex items-center gap-[10px]">
+                <span className="text-[2rem] leading-none shrink-0"
+                      style={{ color: bestMoveInfo.color === 'w' ? '#f0d9b5' : '#b0b8c8' }}>
                   {bestMoveInfo.symbol}
                 </span>
-                <div className="sf-details">
-                  <span className="sf-piece-name">{bestMoveInfo.piece}</span>
-                  <span className="sf-squares">
-                    <span className="sf-sq">{bestMoveInfo.from}</span>
-                    <span className="sf-arrow">→</span>
-                    <span className="sf-sq">{bestMoveInfo.to}</span>
+                <div className="flex flex-col gap-[2px] flex-1">
+                  <span className="font-lato text-[0.8rem] text-txt-primary font-bold">
+                    {bestMoveInfo.piece}
+                  </span>
+                  <span className="flex items-center gap-1 font-lato text-[0.75rem]">
+                    <span className="text-blue">{bestMoveInfo.from}</span>
+                    <span className="text-blue-dim">→</span>
+                    <span className="text-blue">{bestMoveInfo.to}</span>
                   </span>
                 </div>
-                <span className="sf-san">{bestMoveInfo.san}</span>
+                <span className="font-lato text-[1.1rem] font-bold text-green shrink-0">
+                  {bestMoveInfo.san}
+                </span>
               </div>
               {scoreLabel && (
-                <div className="sf-score-row">
-                  <span className="sf-score-key">Score</span>
-                  <span className="sf-score-val">{scoreLabel}</span>
-                  <span className="sf-depth-key">Depth</span>
-                  <span className="sf-depth-val">{depth}</span>
+                <div className="flex items-center gap-[6px] font-lato text-[0.68rem] mt-[2px]">
+                  <span className="text-[#2e4060]">Score</span>
+                  <span className="text-blue mr-2">{scoreLabel}</span>
+                  <span className="text-[#2e4060]">Depth</span>
+                  <span className="text-txt-secondary">{depth}</span>
                 </div>
               )}
             </div>

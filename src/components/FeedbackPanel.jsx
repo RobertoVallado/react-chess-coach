@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import '../styles/FeedbackPanel.css'
 
 function evalLabel(e) {
   if (e === null || e === undefined) return '—'
@@ -9,20 +8,20 @@ function evalLabel(e) {
 
 function EntryCard({ entry }) {
   return (
-    <div className="feedback-line">
-      <span className="feedback-prompt">&gt;</span>
-      <div className="fb-card">
-        <div className="fb-move-row">
-          <span className="fb-move">{entry.lastMove}</span>
-          <span className="fb-color">[{entry.playerColor}]</span>
+    <div className="flex gap-2 font-courier text-[0.84rem] leading-[1.7] text-green py-[1px]">
+      <span className="text-[#2a5a34] shrink-0 select-none">&gt;</span>
+      <div className="flex flex-col gap-[2px] font-courier">
+        <div className="flex items-center gap-2">
+          <span className="text-[0.88rem] font-bold text-[#e8e8e8]">{entry.lastMove}</span>
+          <span className="text-[0.72rem] text-txt-secondary tracking-[0.05em]">[{entry.playerColor}]</span>
         </div>
-        <div className="fb-detail-row">
-          <span className="fb-key">eval</span>
-          <span className="fb-eval">{evalLabel(entry.eval)}</span>
+        <div className="flex items-center gap-[6px] text-[0.75rem]">
+          <span className="text-[#2e4060]">eval</span>
+          <span className="text-blue">{evalLabel(entry.eval)}</span>
           {entry.bestMove && (
             <>
-              <span className="fb-key">best</span>
-              <span className="fb-best">{entry.bestMove}</span>
+              <span className="text-[#2e4060]">best</span>
+              <span className="text-green">{entry.bestMove}</span>
             </>
           )}
         </div>
@@ -39,24 +38,26 @@ export default function FeedbackPanel({ entries }) {
   }, [entries])
 
   return (
-    <div className="feedback-panel">
+    <div className="flex flex-col flex-[2] bg-panel-3 overflow-hidden">
       <div className="panel-header">Feedback</div>
-      <div className="feedback-content">
+      <div className="flex-1 overflow-y-auto p-[12px_4px_12px_12px] scrollbar-green">
         {entries.length === 0 && (
-          <span className="feedback-empty">Waiting for moves...</span>
+          <span className="block font-courier text-[0.78rem] text-[#1e3a22] p-[12px_4px]">
+            Waiting for moves...
+          </span>
         )}
         {entries.map((entry, i) => (
           <EntryCard key={i} entry={entry} />
         ))}
         <div ref={bottomRef} />
       </div>
-        {/* Maintenance Block */}
-        <section className="maintenance-section">
-          <div className="maintenance-card">
-            <h2>Under maintenance 🚧</h2>
-            <p>Waiting for OLLAMA Feedback implementation</p>
-          </div>
-        </section>
+      {/* Maintenance Block */}
+      <section className="flex justify-center my-12">
+        <div className="bg-gradient-to-br from-[#f06f52] to-[#f79c6b] text-white px-8 py-4 rounded-xl text-center shadow-[0_8px_20px_rgba(0,0,0,0.15)]">
+          <h2 className="text-base font-bold">Under maintenance 🚧</h2>
+          <p className="text-sm mt-1">Waiting for OLLAMA Feedback implementation</p>
+        </div>
+      </section>
     </div>
   )
 }

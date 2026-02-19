@@ -1,8 +1,0 @@
-.narrator-panel {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background: #060d14;
-  border-bottom: 1px solid #1a2235;
-  overflow: hidden;
-}

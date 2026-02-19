@@ -12,7 +12,6 @@ import NarratorPanel from './components/NarratorPanel'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import { useStockfish } from './hooks/useStockfish'
-import './App.css'
 
 function useBoardSize() {
   const [size, setSize] = useState(() => {
@@ -39,36 +38,6 @@ const PIECE_NAMES = {
   p: 'Pawn', n: 'Knight', b: 'Bishop', r: 'Rook', q: 'Queen', k: 'King',
 }
 
-function describeMove(move, isCheck, isCheckmate) {
-  const color = move.color === 'w' ? 'White' : 'Black'
-  const piece = PIECE_NAMES[move.piece]
-  let desc
-
-  if (move.flags.includes('k')) {
-    desc = `${color} castles kingside`
-  } else if (move.flags.includes('q') && move.piece === 'k') {
-    desc = `${color} castles queenside`
-  } else if (move.flags.includes('p')) {
-    const promoted = PIECE_NAMES[move.promotion]
-    desc = move.flags.includes('c')
-      ? `${color}'s Pawn captures and promotes to ${promoted} on ${move.to}`
-      : `${color}'s Pawn advances to ${move.to} and promotes to ${promoted}`
-  } else if (move.flags.includes('e')) {
-    desc = `${color}'s Pawn captures en passant on ${move.to}`
-  } else if (move.flags.includes('c')) {
-    const captured = PIECE_NAMES[move.captured]
-    desc = `${color}'s ${piece} captures the ${captured} on ${move.to}`
-  } else if (move.flags.includes('b')) {
-    desc = `${color}'s Pawn advances two squares to ${move.to}`
-  } else {
-    desc = `${color}'s ${piece} moves from ${move.from} to ${move.to}`
-  }
-
-  if (isCheckmate) desc += ' — Checkmate!'
-  else if (isCheck) desc += ' — Check!'
-  return desc
-}
-
 function uciToSan(fen, uci) {
   if (!uci || uci === '(none)') return null
   try {
@@ -89,16 +58,16 @@ export default function App() {
   const [activeTab, setActiveTab]     = useState('history')
 
   // Rival (vs Stockfish) state
-  const [rivalLevel, setRivalLevel]       = useState(LEVELS[0]) // default Easy
+  const [rivalLevel, setRivalLevel]       = useState(LEVELS[0])
   const [rivalThinking, setRivalThinking] = useState(false)
-  const [rivalLastMove, setRivalLastMove] = useState(null)   // last move Stockfish played
-  const [rivalAnimating, setRivalAnimating] = useState(false) // true while rival piece animates
+  const [rivalLastMove, setRivalLastMove] = useState(null)
+  const [rivalAnimating, setRivalAnimating] = useState(false)
 
-  const rivalTriggerRef = useRef(false) // guard against double-firing the rival effect
+  const rivalTriggerRef = useRef(false)
 
   const { analysis, ready, analyze, playRivalMove } = useStockfish()
 
-  const RIVAL_ANIM_MS = 600 // duration of the rival piece slide animation
+  const RIVAL_ANIM_MS = 600
 
   // ── Apply rival move ────────────────────────────────────────
   const handleRivalMove = useCallback((uciMove, fromFen) => {
@@ -117,7 +86,6 @@ export default function App() {
     setRivalThinking(false)
     rivalTriggerRef.current = false
 
-    // Clear the animation flag after the slide finishes
     setTimeout(() => setRivalAnimating(false), RIVAL_ANIM_MS + 50)
   }, [])
 
@@ -126,7 +94,7 @@ export default function App() {
     if (!rivalLevel || !ready || game.isGameOver()) return
     const sfColor = playerColor === 'white' ? 'b' : 'w'
     if (game.turn() !== sfColor) return
-    if (rivalTriggerRef.current) return  // already triggered
+    if (rivalTriggerRef.current) return
 
     rivalTriggerRef.current = true
     setRivalThinking(true)
@@ -139,16 +107,15 @@ export default function App() {
     if (game.isGameOver()) return
     if (rivalLevel) {
       const sfColor = playerColor === 'white' ? 'b' : 'w'
-      if (game.turn() === sfColor) return // Stockfish will play, skip analysis
+      if (game.turn() === sfColor) return
     }
     analyze(game.fen())
   }, [game, analyze, rivalLevel, playerColor])
 
   // ── Player piece drop ────────────────────────────────────────
   const onPieceDrop = useCallback((sourceSquare, targetSquare, piece) => {
-    if (rivalThinking) return false // board locked while rival thinks
+    if (rivalThinking) return false
 
-    // Always restrict to the player's own color
     const droppedColor = piece?.[0] === 'w' ? 'white' : 'black'
     if (droppedColor !== playerColor) return false
 
@@ -178,30 +145,19 @@ export default function App() {
     }
 
     // TODO: replace with real API call
-    // fetch('/analyze-api', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(movePayload) })
     console.log('[analyze-api] payload:', movePayload)
 
     setFeedback(prev => [...prev, movePayload])
-
-    setRivalLastMove(null) // clear rival's last shown move on player's turn
+    setRivalLastMove(null)
     return true
   }, [game, rivalThinking, playerColor, analysis])
 
   // ── Add rival moves to the narrator/feedback feed ────────────
   useEffect(() => {
     if (!rivalLastMove) return
+    // eslint-disable-next-line no-unused-vars
     const rivalColor = playerColor === 'white' ? 'black' : 'white'
-    const sc = analysis.score
-    const evalScore = sc === null || sc === undefined ? null
-      : typeof sc === 'object' ? sc : sc / 100
-    // setFeedback(prev => [...prev, {
-    //   fen:         game.fen(),
-    //   lastMove:    rivalLastMove.san,
-    //   eval:        evalScore,
-    //   bestMove:    null,
-    //   playerColor: rivalColor,
-    //   isRival:     true,
-    // }])
+    // setFeedback(prev => [...prev, { ... }])
   }, [rivalLastMove]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Prevent picking up rival pieces ──────────────────────────
@@ -214,7 +170,7 @@ export default function App() {
   const handleNewGame = (color) => {
     rivalTriggerRef.current = false
     setPlayerColor(color)
-    setRivalLevel(null)        // unlock level buttons for the new game
+    setRivalLevel(null)
     setGame(new Chess())
     setMoves([])
     setFeedback([])
@@ -223,13 +179,12 @@ export default function App() {
     setShowColorPicker(false)
   }
 
-  // ── Level change resets game if rival mode is toggled ────────
+  // ── Level change resets game ────────────────────────────────
   const handleLevelChange = (level) => {
     rivalTriggerRef.current = false
     setRivalLevel(level)
     setRivalLastMove(null)
     setRivalThinking(false)
-    // Reset to a fresh game whenever mode changes
     setGame(new Chess())
     setMoves([])
     setFeedback([])
@@ -246,7 +201,6 @@ export default function App() {
   // ── Board highlights ─────────────────────────────────────────
   const bestMoveSan = uciToSan(game.fen(), analysis.bestMove)
   const customSquareStyles = useMemo(() => {
-    // In rival mode, highlight Stockfish's last move (orange) instead of best suggestion
     if (rivalLevel && rivalLastMove) {
       return {
         [rivalLastMove.from]: { backgroundColor: 'rgba(255, 165, 60, 0.4)' },
@@ -264,16 +218,16 @@ export default function App() {
 
   const scoreDisplay = (() => {
     const { score, depth, thinking } = analysis
-    if (!ready)              return 'Engine loading…'
+    if (!ready)                  return 'Engine loading…'
     if (thinking && depth === 0) return 'Analysing…'
-    if (score === null)      return '—'
+    if (score === null)          return '—'
     if (typeof score === 'object') return `Mate in ${Math.abs(score.mate)}`
     const pawns = (score / 100).toFixed(2)
     return score > 0 ? `+${pawns}` : `${pawns}`
   })()
 
   return (
-    <div className="app">
+    <div className="flex flex-col min-h-screen md:h-screen bg-app-bg text-txt-primary overflow-y-auto md:overflow-hidden">
       <Header
         isLoggedIn={isLoggedIn}
         onToggleLogin={() => setIsLoggedIn(v => !v)}
@@ -287,14 +241,24 @@ export default function App() {
         />
       )}
 
-      <div className="main-content">
-        <div className="board-panel">
-          <div className="board-status">
-            <span className={`status-text ${rivalThinking ? 'status-thinking' : ''}`}>{status}</span>
-            <button className="reset-btn" onClick={() => setShowColorPicker(true)}>New Game</button>
+      <div className="flex flex-1 flex-col md:flex-row overflow-visible md:overflow-hidden">
+        {/* Board panel */}
+        <div className="flex flex-col items-center md:items-start p-3 md:p-[14px_16px] gap-2 shrink-0">
+          {/* Status + New Game */}
+          <div className="flex items-center justify-between w-full">
+            <span className={`font-lato text-[0.85rem] tracking-[0.05em] ${rivalThinking ? 'text-orange animate-blink' : 'text-blue'}`}>
+              {status}
+            </span>
+            <button
+              className="bg-btn-bg text-blue border border-border-light rounded px-3 py-1 font-lato text-[0.8rem] cursor-pointer hover:bg-btn-hover transition-colors"
+              onClick={() => setShowColorPicker(true)}
+            >
+              New Game
+            </button>
           </div>
 
-          <div className="board-with-eval">
+          {/* Board + eval bar */}
+          <div className="flex items-stretch gap-2">
             <EvalBar score={analysis.score} height={BOARD_SIZE} />
             <ChessBoard
               position={game.fen()}
@@ -308,42 +272,60 @@ export default function App() {
             />
           </div>
 
-          <div className="analysis-row">
-            <span className="analysis-chip">
+          {/* Analysis chips */}
+          <div className="flex items-center gap-2 w-full flex-wrap">
+            <span className="font-lato text-[0.75rem] px-[10px] py-[3px] rounded-[3px] bg-chip-bg border border-border-mid text-txt-secondary whitespace-nowrap">
               {analysis.thinking ? '⚡' : '✓'} Depth&nbsp;<strong>{analysis.depth}</strong>
             </span>
-            <span className="analysis-chip score-chip">{scoreDisplay}</span>
+            <span className="font-lato text-[0.75rem] px-[10px] py-[3px] rounded-[3px] bg-chip-bg border border-blue-dim text-blue whitespace-nowrap">
+              {scoreDisplay}
+            </span>
             {!rivalLevel && bestMoveSan && (
-              <span className="analysis-chip best-chip">
+              <span className="font-lato text-[0.75rem] px-[10px] py-[3px] rounded-[3px] bg-chip-bg border border-green-dim text-green whitespace-nowrap">
                 Best&nbsp;<strong>{bestMoveSan}</strong>
               </span>
             )}
             {rivalLevel && (
-              <span className="analysis-chip rival-chip">
+              <span className="font-lato text-[0.75rem] px-[10px] py-[3px] rounded-[3px] bg-chip-bg border border-orange-dim text-orange whitespace-nowrap">
                 vs&nbsp;<strong>{rivalLevel.label}</strong>
               </span>
             )}
           </div>
         </div>
 
-        <div className="mobile-tabs">
+        {/* Mobile tab bar */}
+        <div className="flex md:hidden bg-panel-7 border-y border-border-dim shrink-0">
           <button
-            className={`mobile-tab ${activeTab === 'history' ? 'mobile-tab-active' : ''}`}
+            className={`flex-1 py-[11px] bg-transparent border-none border-b-2 font-lato text-[0.75rem] tracking-[0.12em] uppercase cursor-pointer transition-colors ${
+              activeTab === 'history'
+                ? 'text-blue border-blue'
+                : 'text-txt-secondary border-transparent'
+            }`}
             onClick={() => setActiveTab('history')}
-          >History</button>
+          >
+            History
+          </button>
           <button
-            className={`mobile-tab ${activeTab === 'analysis' ? 'mobile-tab-active' : ''}`}
+            className={`flex-1 py-[11px] bg-transparent border-none border-b-2 font-lato text-[0.75rem] tracking-[0.12em] uppercase cursor-pointer transition-colors ${
+              activeTab === 'analysis'
+                ? 'text-blue border-blue'
+                : 'text-txt-secondary border-transparent'
+            }`}
             onClick={() => setActiveTab('analysis')}
-          >Analysis</button>
+          >
+            Analysis
+          </button>
         </div>
 
-        <div className={`history-column${activeTab !== 'history' ? ' mobile-hidden' : ''}`}>
+        {/* History column */}
+        <div className={`flex-col md:w-[307px] w-full shrink-0 border-border-dim md:border-x border-t md:border-t-0 overflow-hidden ${activeTab !== 'history' ? 'hidden md:flex' : 'flex'}`}>
           <MoveHistory moves={moves} />
           <AnalysisPanel analysis={analysis} fen={game.fen()} />
           <WhyDepthMattersPanel />
         </div>
 
-        <div className={`feedback-column${activeTab !== 'analysis' ? ' mobile-hidden' : ''}`}>
+        {/* Feedback column */}
+        <div className={`flex-col flex-1 border-border-dim md:border-l border-t md:border-t-0 overflow-hidden ${activeTab !== 'analysis' ? 'hidden md:flex' : 'flex'}`}>
           <StockfishPanel
             analysis={analysis}
             fen={game.fen()}

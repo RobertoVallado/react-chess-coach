@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { Chess } from 'chess.js'
-import '../styles/AnalysisPanel.css'
 
 // Convert an array of UCI moves (from the current FEN) into SAN notation
 function pvToSan(fen, uciMoves) {
@@ -84,56 +83,58 @@ export default function AnalysisPanel({ analysis, fen }) {
   })()
 
   return (
-    <div className="analysis-side-panel">
+    <div className="flex flex-col flex-[2] bg-panel-6 overflow-hidden">
       <div className="panel-header">
         Analysis {thinking && <span className="thinking-dot">●</span>}
       </div>
 
-      <div className="analysis-side-content">
+      <div className="flex-1 overflow-y-auto p-[10px_12px] flex flex-col gap-[14px] scrollbar-blue">
         {/* Depth block */}
-        <div className="as-block">
-          <div className="as-row">
-            <span className="as-label">Depth</span>
-            <span className="as-value" style={{ color: quality.color }}>
+        <div className="flex flex-col gap-[5px]">
+          <div className="flex items-baseline justify-between gap-[6px]">
+            <span className="font-lato text-[0.65rem] tracking-[0.12em] uppercase text-txt-primary">Depth</span>
+            <span className="font-lato text-[0.82rem] font-bold flex items-center gap-[5px]" style={{ color: quality.color }}>
               {depth > 0 ? depth : '—'}&nbsp;
-              <span className="as-tag" style={{ borderColor: quality.color, color: quality.color }}>
+              <span
+                className="text-[0.58rem] font-normal tracking-[0.08em] uppercase border rounded-[2px] px-[5px] py-[1px]"
+                style={{ borderColor: quality.color, color: quality.color }}
+              >
                 {quality.label}
               </span>
             </span>
           </div>
-          <div className="as-progress-track">
+          <div className="h-[3px] bg-[#1a2235] rounded-[2px] overflow-hidden">
             <div
-              className="as-progress-fill"
+              className="h-full rounded-[2px] transition-[width,background] duration-500"
               style={{ width: `${quality.pct}%`, background: quality.color }}
             />
           </div>
-          <p className="as-explain">{depthText}</p>
+          <p className="font-lato text-[0.68rem] leading-[1.55] text-txt-dim">{depthText}</p>
         </div>
 
         {/* Score block */}
-        <div className="as-block">
-          <div className="as-row">
-            <span className="as-label">Score</span>
-            <span className="as-value score-value">{scoreLabel}</span>
+        <div className="flex flex-col gap-[5px]">
+          <div className="flex items-baseline justify-between gap-[6px]">
+            <span className="font-lato text-[0.65rem] tracking-[0.12em] uppercase text-txt-primary">Score</span>
+            <span className="font-lato text-[0.82rem] font-bold text-blue">{scoreLabel}</span>
           </div>
-          {scoreText && <p className="as-explain">{scoreText}</p>}
+          {scoreText && <p className="font-lato text-[0.68rem] leading-[1.55] text-txt-dim">{scoreText}</p>}
         </div>
 
         {/* Best line block */}
         {sanLine.length > 0 && (
-          <div className="as-block">
-            <div className="as-label" style={{ marginBottom: 4 }}>Best line</div>
-            <div className="as-pv">
+          <div className="flex flex-col gap-[5px]">
+            <div className="font-lato text-[0.65rem] tracking-[0.12em] uppercase text-txt-primary mb-1">Best line</div>
+            <div className="font-lato text-[0.76rem] leading-[1.6] break-words">
               {sanLine.map((san, i) => (
-                <span key={i} className={i % 2 === 0 ? 'pv-white' : 'pv-black'}>
-                  {i % 2 === 0 && <span className="pv-num">{Math.floor(i / 2) + 1}.</span>}
+                <span key={i} className={i % 2 === 0 ? 'text-txt-primary' : 'text-[#7a90a8]'}>
+                  {i % 2 === 0 && <span className="text-blue-dim mr-[2px]">{Math.floor(i / 2) + 1}.</span>}
                   {san}{' '}
                 </span>
               ))}
             </div>
           </div>
         )}
-
       </div>
     </div>
   )

@@ -1,23 +1,37 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Lato", sans-serif;
+  }
 }
 
-html, body, #root {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+@layer components {
+  .panel-header {
+    @apply font-lato text-[0.68rem] tracking-[0.15em] uppercase text-txt-muted
+           px-[14px] py-[10px] border-b border-border-dim shrink-0;
+  }
+  .thinking-dot {
+    @apply text-green text-[0.55rem] align-middle animate-blink-slow;
+  }
 }
 
-body {
-  font-family: "Lato", sans-serif;
-  background: #0d0f1a;
-  color: #c8d6e5;
-}
+/* Custom scrollbars */
+.scrollbar-chess { scrollbar-width: thin; scrollbar-color: #2e3a55 transparent; }
+.scrollbar-green { scrollbar-width: thin; scrollbar-color: #1a3a1a transparent; }
+.scrollbar-blue  { scrollbar-width: thin; scrollbar-color: #1e2840 transparent; }
 
-.footer {
-  text-align: center;
-  padding: 2rem;
-  opacity: 0.7;
-}
+.scrollbar-chess::-webkit-scrollbar,
+.scrollbar-green::-webkit-scrollbar,
+.scrollbar-blue::-webkit-scrollbar { width: 4px; }
+
+.scrollbar-chess::-webkit-scrollbar-thumb { background: #2e3a55; border-radius: 2px; }
+.scrollbar-green::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 2px; }
+.scrollbar-blue::-webkit-scrollbar-thumb  { background: #1e2840; border-radius: 2px; }
